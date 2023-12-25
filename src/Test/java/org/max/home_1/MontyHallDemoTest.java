@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Класс с тестами не должен быть abstract
 public abstract class MontyHallDemoTest {
 
     @Test
@@ -15,9 +16,11 @@ public abstract class MontyHallDemoTest {
         int[] result = montyHallDemo.simulateMontyHallGames(totalGames);
 
         assertNotNull(result);
+        // у Вас result всегда int[0] - т.е. пустой массив, поэтому его длина будет 0
         assertEquals(2, result.length); // Ожидаем два значения
 
         int stayWins = result[0];
+        //тут у Вас будет Exception
         int switchWins = result[1];
 
         assertTrue(stayWins >= 0);
@@ -31,6 +34,7 @@ public abstract class MontyHallDemoTest {
         int totalGames = -1000; // Отрицательное количество игр
 
         // Попытка выполнить метод с отрицательным числом игр
+        // у Вас параметр totalGames никак не используется в методе simulateMontyHallGames, поэтому IllegalArgumentException не будет
         assertThrows(IllegalArgumentException.class, () -> {
             montyHallDemo.simulateMontyHallGames(totalGames);
         });
@@ -44,6 +48,7 @@ public abstract class MontyHallDemoTest {
         int[] result = montyHallDemo.simulateMontyHallGames(totalGames);
 
         assertNotNull(result);
+        // у Вас result всегда int[0] - т.е. пустой массив, поэтому его длина будет 0
         assertEquals(2, result.length);
 
         int stayWins = result[0];
