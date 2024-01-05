@@ -10,6 +10,7 @@ public class ForecastsFifteenDaysTest extends AccuweatherAbstractTest{
     void testGetResponse() {
         String response = given().queryParam("apikey", getApiKey()).pathParam("locationKey", 50)
                 .when().get(getBaseUrl() + "/forecasts/v1/daily/15day/{locationKey}")
+            //тут будет код 401, а не 200. По используемому ключу погода за 10 жней не доступна
                 .then().statusCode(200).time(lessThan(2000L))
                 .extract().asString();
         System.out.println(response);
