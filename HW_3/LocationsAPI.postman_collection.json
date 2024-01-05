@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "9f23a081-0840-4437-8c49-435961f17085",
+		"name": "LocationsAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29302588"
+	},
+	"item": [
+		{
+			"name": "TopCitiesList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Bosnia and Herzegovina\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Count object = \" + pm.response.json().length, function () {\r",
+							"    pm.expect(pm.response.json().length).to.equal(50);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/locations/v1/topcities/50?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"locations",
+						"v1",
+						"topcities",
+						"50"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AutocompleteSearch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Проверка получения информации о выбранном городе\", function () {\r",
+							"    pm.response.to.have.jsonBody('locationInfo', pm.iteration);\r",
+							"    pm.expect(pm.response.json().locationInfo.name).to.equal(\"Paris\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify the First Location is 'Ville de Paris' in France\", function () {\r",
+							"    pm.expect(pm.response.json()[0]).to.eql({\r",
+							"        \"AdministrativeArea\": {\r",
+							"            \"ID\": \"75\",\r",
+							"            \"LocalizedName\": \"Ville de Paris\"\r",
+							"        },\r",
+							"        \"Country\": {\r",
+							"            \"ID\": \"FR\",\r",
+							"            \"LocalizedName\": \"France\"\r",
+							"        },\r",
+							"        \"Key\": \"623\",\r",
+							"        \"LocalizedName\": \"Paris\",\r",
+							"        \"Rank\": 20,\r",
+							"        \"Type\": \"City\",\r",
+							"        \"Version\": 1\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check the Number of Locations Returned (Should be 10)\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.lengthOf(10);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/locations/v1/cities/autocomplete?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa&q=Pari",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"locations",
+						"v1",
+						"cities",
+						"autocomplete"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						},
+						{
+							"key": "q",
+							"value": "Pari"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AdminAreaList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking if there is an array in the neighborhood in the response\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('adminAreas').that.is.an('array').with.length.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the availability of information about the first administrative district\", function () {\r",
+							"    pm.expect(pm.response.json().adminAreas[0]).to.have.property('name').that.is.a('string');\r",
+							"    pm.expect(pm.response.json().adminAreas[0]).to.have.property('code').that.is.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/locations/v1/adminareas/5?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"locations",
+						"v1",
+						"adminareas",
+						"5"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CountryList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking for the presence of an array of countries in the response\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('countries').that.is.an('array').with.length.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking availability of information about the first country\", function () {\r",
+							"    pm.expect(pm.response.json().countries[0]).to.have.property('name').that.is.a('string');\r",
+							"    pm.expect(pm.response.json().countries[0]).to.have.property('code').that.is.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/locations/v1/adminareas/5?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"locations",
+						"v1",
+						"adminareas",
+						"5"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegionList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking for the presence of an array of regions in the response\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('regions').that.is.an('array').with.length.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the availability of information about the first region\", function () {\r",
+							"    pm.expect(pm.response.json().regions[0]).to.have.property('name').that.is.a('string');\r",
+							"    pm.expect(pm.response.json().regions[0]).to.have.property('code').that.is.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/locations/v1/regions/?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"locations",
+						"v1",
+						"regions",
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CitySearch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking for the presence of an array of cities in the response\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('cities').that.is.an('array').with.length.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking availability of information about the first city\", function () {\r",
+							"    pm.expect(pm.response.json().cities[0]).to.have.property('name').that.is.a('string');\r",
+							"    pm.expect(pm.response.json().cities[0]).to.have.property('code').that.is.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/locations/v1/regions/?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa&q=Serbia",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"locations",
+						"v1",
+						"regions",
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						},
+						{
+							"key": "q",
+							"value": "Serbia"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://dataservice.accuweather.com",
+			"type": "string"
+		}
+	]
+}

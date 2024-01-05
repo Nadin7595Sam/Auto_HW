@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "670bd612-9e5d-4bcb-8175-6f01831766ea",
+		"name": "ForecastAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29302588"
+	},
+	"item": [
+		{
+			"name": "OneDayOfDailyForecasts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking weather information for the first day\", function () {\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Date', '2024-01-04T07:00:00-07:00');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Temperature').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature).to.have.property('Minimum').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Value', 9.0);\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Unit', 'F');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking for header information\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('Headline').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Text', 'Snowfall this evening will total a coating to an inch');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Category', 'snow');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/forecasts/v1/daily/1day/50?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"forecasts",
+						"v1",
+						"daily",
+						"1day",
+						"50"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FiveDayOfDailyForecasts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Weather Information for the First Day\", function () {\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Date', '2024-01-04T07:00:00-07:00');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Temperature').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature).to.have.property('Minimum').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Value', 9.0);\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Unit', 'F');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Headline Information\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('Headline').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Text', 'Snowfall this evening will total a coating to an inch');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/forecasts/v1/daily/5day/50?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"forecasts",
+						"v1",
+						"daily",
+						"5day",
+						"50"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TenDayOfDailyForecasts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Weather Information for the First Day\", function () {\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Date', '2024-01-04T07:00:00-07:00');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Temperature').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature).to.have.property('Minimum').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Value', 9.0);\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Unit', 'F');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Headline Information\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('Headline').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Text', 'Snowfall this evening will total a coating to an inch');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Category', 'snow');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/forecasts/v1/daily/10day/50?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"forecasts",
+						"v1",
+						"daily",
+						"10day",
+						"50"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FifteenDayOfDailyForecasts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Weather Information for the First Day\", function () {\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Date', '2024-01-04T07:00:00-07:00');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0]).to.have.property('Temperature').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature).to.have.property('Minimum').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Value', 9.0);\r",
+							"    pm.expect(pm.response.json().DailyForecasts[0].Temperature.Minimum).to.have.property('Unit', 'F');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Headline Information\", function () {\r",
+							"    pm.expect(pm.response.json()).to.have.property('Headline').that.is.an('object');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Text', 'Snowfall this evening will total a coating to an inch');\r",
+							"    pm.expect(pm.response.json().Headline).to.have.property('Category', 'snow');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{baseUrl}}/forecasts/v1/daily/10day/50?apikey=WCgyg5HO9QK50mGLNae8r3OEMD34oCpa",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"forecasts",
+						"v1",
+						"daily",
+						"10day",
+						"50"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "WCgyg5HO9QK50mGLNae8r3OEMD34oCpa"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://dataservice.accuweather.com",
+			"type": "string"
+		}
+	]
+}
