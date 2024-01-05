@@ -1,3 +1,5 @@
+//правильный package org.max.lesson3.accuweather.accuweather;
+//аналогично с остальными классами
 package org.max.lesson3.seminar.accuweather;
 
 import io.restassured.RestAssured;
