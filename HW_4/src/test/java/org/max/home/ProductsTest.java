@@ -16,14 +16,14 @@ public class ProductsTest extends AbstractTest {
     static void setUp() {
         init();
 
-        // Создание таблицы products и заполнение данными, если она не существует
+
         String createTableSQL = "CREATE TABLE IF NOT EXISTS products ("
                 + "product_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                 + "menu_name VARCHAR(80) NOT NULL,"
                 + "price FLOAT NOT NULL"
                 + ")";
 
-        // SQL-запросы для заполнения таблицы products
+ 
         String[] insertQueries = {
                 "INSERT INTO products (menu_name, price) VALUES ('GOJIRA ROLL', 300)",
                 "INSERT INTO products (menu_name, price) VALUES ('VIVA LAS VEGAS ROLL', 450)",
