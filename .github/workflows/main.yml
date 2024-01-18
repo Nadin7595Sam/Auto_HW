@@ -16,4 +16,4 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: mvn --batch-mode --update-snapshots -f Auto_HW/HW_6/pom.xml test
+      - run: mvn --batch-mode --update-snapshots -f HW_6/pom.xml test
